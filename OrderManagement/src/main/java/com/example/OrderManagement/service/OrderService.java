@@ -10,11 +10,13 @@ import com.example.OrderManagement.persistence.model.OrderItemEntity;
 import com.example.OrderManagement.persistence.repository.BusServiceRepository;
 import com.example.OrderManagement.persistence.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -24,6 +26,8 @@ public class OrderService {
   private final OrderMapper orderMapper;
 
   public Order createOrder(Order order) {
+
+    log.info("Received request to create order: {}", order);
     double totalPrice = 0.0;
 
     // Fetch bus service details and calculate total price
@@ -48,7 +52,9 @@ public class OrderService {
     // Set calculated total price and initial status
     order.setTotalPrice(totalPrice);
     order.setCreatedAt(LocalDateTime.now());
-    order.setStatus("PENDING");
+    order.setStatus(OrderStatus.PENDING);
+
+    log.info("Order fulfilled to be saved: {}", order);
 
     // Save the order
     OrderEntity savedEntity = orderRepository.save(orderMapper.toEntity(order));

@@ -14,10 +14,14 @@ public class OrderItemEntity {
 
   private Long busServiceId;
 
-  private int quantity;
+  private int quantity = 1;
 
   private double pricePerTicket;
 
   private double totalPrice;
+
+  @ManyToOne
+  @JoinColumn(name = "order_id", nullable = false)
+  private OrderEntity order;
 }
 

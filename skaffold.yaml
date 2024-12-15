@@ -9,11 +9,11 @@ build:
     - image: order-management
       context: OrderManagement
       custom:
-        buildCommand: "./gradlew clean build && docker build -t order-management:latest ."
+        buildCommand: "./gradlew clean build && docker build -t ${IMAGE} ."
     - image: ticket-service
       context: TicketService
       custom:
-        buildCommand: "./gradlew clean build && docker build -t ticket-service:latest ."
+        buildCommand: "./gradlew clean build && docker build -t ${IMAGE} ."
 deploy:
   kubectl:
     manifests:

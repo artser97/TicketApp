@@ -18,18 +18,17 @@ public class OrderEntity {
 
   private String customerName;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "order_id")
-  private List<OrderItemEntity> items;
-
-  private double totalPrice;
+  private Double totalPrice;
 
   private LocalDateTime createdAt;
 
   @Enumerated(EnumType.STRING)
   private OrderStatus status;
 
-  private String paymentId; 
+  private String paymentId;
+
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<OrderItemEntity> items;
 
   @ElementCollection
   @CollectionTable(name = "order_tickets", joinColumns = @JoinColumn(name = "order_id"))

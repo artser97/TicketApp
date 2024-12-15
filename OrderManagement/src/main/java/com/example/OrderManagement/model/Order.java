@@ -12,7 +12,7 @@ public class Order {
   private List<OrderItem> items;
   private double totalPrice;
   private LocalDateTime createdAt;
-  private String status; // PENDING, PAID, CANCELED
+  private OrderStatus status; // PENDING, PAID, CANCELED
   private String paymentId; // To track payment
   private List<String> tickets; // Ticket IDs generated after payment
 }
