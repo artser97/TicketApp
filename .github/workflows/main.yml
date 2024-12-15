@@ -33,6 +33,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
 
-    # Run tests in OrderManagement folder
+    # Navigate to OrderManagement directory and run tests
     - name: Run OrderManagement tests
-      run: ./gradlew :OrderManagement:test
+      working-directory: OrderManagement
+      run: ./gradlew test
