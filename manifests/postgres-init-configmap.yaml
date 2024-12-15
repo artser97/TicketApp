@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+data:
+  init-databases.sql: |
+    DO $$ BEGIN
+      CREATE DATABASE ticketdb;
+    EXCEPTION WHEN duplicate_database THEN
+      RAISE NOTICE 'Database ticketdb already exists, skipping.';
+    END $$;
+
+    DO $$ BEGIN
+      CREATE DATABASE orderdb;
+    EXCEPTION WHEN duplicate_database THEN
+      RAISE NOTICE 'Database orderdb already exists, skipping.';
+    END $$;

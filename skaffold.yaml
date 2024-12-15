@@ -1,0 +1,34 @@
+apiVersion: skaffold/v2beta27
+kind: Config
+metadata:
+  name: order-ticket-app
+build:
+  local:
+    push: false  # Local builds
+  artifacts:
+    - image: order-management
+      context: OrderManagement
+      custom:
+        buildCommand: "./gradlew clean build && docker build -t order-management:latest ."
+    - image: ticket-service
+      context: TicketService
+      custom:
+        buildCommand: "./gradlew clean build && docker build -t ticket-service:latest ."
+deploy:
+  kubectl:
+    manifests:
+      - manifests/postgres-pvc.yaml
+      - manifests/postgres-deployment.yaml
+      - manifests/order-management-deployment.yaml
+      - manifests/ticket-service-deployment.yaml
+      - manifests/order-management-service.yaml
+      - manifests/ticket-service-service.yaml
+portForward:
+  - resourceType: service
+    resourceName: order-management
+    port: 8080
+    localPort: 8080  # Port to forward to localhost
+  - resourceType: service
+    resourceName: ticket-service
+    port: 8081
+    localPort: 8081
