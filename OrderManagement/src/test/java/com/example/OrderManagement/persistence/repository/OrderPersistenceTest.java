@@ -1,4 +1,4 @@
-package com.example.OrderManagement.persistence;
+package com.example.OrderManagement.persistence.repository;
 
 import com.example.OrderManagement.model.OrderStatus;
 import com.example.OrderManagement.persistence.model.OrderEntity;
